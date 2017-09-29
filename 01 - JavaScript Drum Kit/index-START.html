@@ -59,6 +59,28 @@
 
 <script>
 
+  window.addEventListener('keydown', playSound);
+
+  function playSound(e){
+
+    const keyNode = document.querySelector(`div.key[data-key='${e.keyCode}']`);
+    if(!keyNode) return;
+    const audioNode = document.querySelector(`audio[data-key='${e.keyCode}'`);
+
+    audioNode.currentTime = 0;
+    audioNode.play();
+    keyNode.classList.add('playing');
+
+
+
+    keyNode.addEventListener('transitionend', backToNormal);
+    function backToNormal(e){
+      if(e.propertyName === 'transform') this.classList.remove('playing');
+    }
+
+  }
+
+
 </script>
 
 
