@@ -72,12 +72,22 @@
     keyNode.classList.add('playing');
 
 
-
-    keyNode.addEventListener('transitionend', backToNormal);
+    //Unefficient. Every time button pressed we are setting NEW (but the same) event handler
+    /*keyNode.addEventListener('transitionend', backToNormal);
     function backToNormal(e){
       if(e.propertyName === 'transform') this.classList.remove('playing');
-    }
+    }*/
 
+  }
+
+  const keys = document.querySelectorAll('.key');
+
+  [...keys].forEach( (key)=>{
+    key.addEventListener('transitionend', removePlayingState);
+  });
+
+  function removePlayingState(e){
+    if(e.propertyName === 'transform') this.classList.remove('playing');
   }
 
 
