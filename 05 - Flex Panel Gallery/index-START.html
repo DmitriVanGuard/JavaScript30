@@ -24,6 +24,7 @@
     .panels {
       min-height:100vh;
       overflow: hidden;
+      display: flex;
     }
 
     .panel {
@@ -41,6 +42,10 @@
       font-size: 20px;
       background-size:cover;
       background-position:center;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
     }
 
 
@@ -56,6 +61,13 @@
       transition:transform 0.5s;
     }
 
+    .panel > p:first-child{
+      transform: translateY(-200px);
+    }
+    .panel > p:last-child{
+      transform: translateY(200px);
+    }
+
     .panel p {
       text-transform: uppercase;
       font-family: 'Amatic SC', cursive;
@@ -68,6 +80,10 @@
 
     .panel.open {
       font-size:40px;
+      flex: 5;
+    }
+    .panel.grow-words p{
+      transform: none;
     }
 
   </style>
@@ -102,6 +118,20 @@
   </div>
 
   <script>
+
+    const panels = document.querySelectorAll('.panel');
+
+
+
+    panels.forEach( panel => {
+      panel.onclick = function(){ this.classList.toggle('open') };
+      panel.addEventListener('transitionend', handleGrow);
+    });
+
+    function handleGrow(e){
+      // if(e.propertyName === 'flex-grow') this.classList.toggle('grow-words'); Better .includes(flex) for cross-browser compatibility
+      if(e.propertyName.includes('flex')) this.classList.toggle('grow-words');
+    }
 
   </script>
 
