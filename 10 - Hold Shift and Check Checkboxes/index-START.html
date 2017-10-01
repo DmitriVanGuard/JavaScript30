@@ -99,6 +99,43 @@
   </div>
 
 <script>
+
+  const checkboxes = [...document.querySelectorAll('input')];
+
+  const inbox = document.querySelector('.inbox');
+
+  let lastChecked = null;
+
+  inbox.addEventListener('click', handleInbox);
+
+
+  function handleInbox(e){
+    if(e.target.type === 'checkbox'){
+      const cb = e.target;
+
+      cb.index = checkboxes.findIndex( input => input === cb);
+
+      if(e.shiftKey){
+        console.log(lastChecked.index, cb.index);
+        const pointer = {};
+        pointer.start = Math.min(lastChecked.index, cb.index);
+        pointer.end = Math.max(lastChecked.index, cb.index);
+
+        while(pointer.start < pointer.end){
+          checkboxes[pointer.start].checked = true;
+          pointer.start++;
+        }
+
+      }
+
+      lastChecked = cb;
+    }
+  }
+
+
+
+
 </script>
+
 </body>
 </html>
