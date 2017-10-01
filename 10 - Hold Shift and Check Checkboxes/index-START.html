@@ -100,7 +100,7 @@
 
 <script>
 
-  const checkboxes = [...document.querySelectorAll('input')];
+  const checkboxes = document.querySelectorAll('input');
 
   const inbox = document.querySelector('.inbox');
 
@@ -113,18 +113,14 @@
     if(e.target.type === 'checkbox'){
       const cb = e.target;
 
-      cb.index = checkboxes.findIndex( input => input === cb);
+      let inBetween = false;
 
-      if(e.shiftKey){
-        console.log(lastChecked.index, cb.index);
-        const pointer = {};
-        pointer.start = Math.min(lastChecked.index, cb.index);
-        pointer.end = Math.max(lastChecked.index, cb.index);
-
-        while(pointer.start < pointer.end){
-          checkboxes[pointer.start].checked = true;
-          pointer.start++;
-        }
+      if(e.target.checked && e.shiftKey){
+        
+        checkboxes.forEach(item => {
+          if(item === cb || item === lastChecked) inBetween = !inBetween;
+          if(inBetween) item.checked = true;
+        });
 
       }
 
