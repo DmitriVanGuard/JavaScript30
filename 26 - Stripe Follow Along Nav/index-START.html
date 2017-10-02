@@ -123,13 +123,13 @@
     opacity: 0;
     position: absolute;
     overflow: hidden;
-    padding:20px;
     top:-20px;
     border-radius:2px;
-    transition: all 0.5s;
+    transition: opacity 0.4s;
     transform: translateY(100px);
     will-change: opacity;
-    display: none;
+    display: block;
+    height: 0;
   }
 
   .trigger-enter .dropdown {
@@ -138,6 +138,8 @@
 
   .trigger-enter-active .dropdown {
     opacity: 1;
+    height: auto;
+    padding:20px;
   }
 
 
@@ -149,7 +151,7 @@
     background: #fff;
     border-radius: 4px;
     box-shadow: 0 50px 100px rgba(50,50,93,.1), 0 15px 35px rgba(50,50,93,.15), 0 5px 15px rgba(0,0,0,.1);
-    transition:all 0.3s, opacity 0.1s, transform 0.2s;
+    transition: width 250ms, height 250ms,opacity 250ms, transform 250ms;
     transform-origin: 50% 0;
     display: flex;
     justify-content: center;
@@ -214,6 +216,36 @@
 </style>
 
 <script>
+  const background = document.querySelector('.dropdownBackground');
+  const links = document.querySelectorAll('.cool > li');
+
+  links.forEach( item => {
+    item.addEventListener('mouseenter', handleEnter);
+    item.addEventListener('mouseleave', handleLeave);
+  });
+
+  function handleEnter(){
+    this.classList.add('trigger-enter-active');
+    const {offsetWidth: width, offsetHeight: height} = this.lastElementChild;
+    background.classList.add('open');
+    background.style.width = `${width}px`;
+    background.style.height = `${height}px`;
+    let [x, y] = findPageOffset(this.lastElementChild, document.querySelector('.top'));
+    background.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+  }
+
+  function handleLeave(){
+    this.classList.remove('trigger-enter-active');
+    background.classList.remove('open');
+  }
+
+  function findPageOffset(child, parent){
+    let {x:childX, y:childY} = child.getBoundingClientRect();
+    childX -= parent.getBoundingClientRect()['x'];
+    childY -= parent.getBoundingClientRect()['y'];
+    return [childX, childY];
+  }
+
 </script>
 
 </body>
