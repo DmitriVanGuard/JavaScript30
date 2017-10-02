@@ -27,6 +27,38 @@
 
   <script>
     // 👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀
+
+    const links = document.querySelectorAll('a');
+
+    const hl = document.createElement('span');
+    hl.classList.add('highlight');
+    document.body.appendChild(hl);
+
+
+    links.forEach( link => link.addEventListener('mouseover', highlightIt));
+
+    function highlightIt(){
+
+      const {offsetX: x, offsetY: y} = findTopOffset(this);
+
+      hl.style.width = `${this.offsetWidth}px`;
+      hl.style.height = `${this.offsetHeight}px`;
+      hl.style.transform = `translate(${x}px, ${y}px)`;
+
+    }
+
+    function findTopOffset(child){
+      let [offsetY, offsetX] = [0, 0];
+      while(child !== document.body){
+        offsetY += child.offsetTop;
+        offsetX += child.offsetLeft;
+        child = child.offsetParent;
+      }
+      // console.table(); 
+      return {offsetX, offsetY};
+    }
+
+
   </script>
 </body>
 </html>
