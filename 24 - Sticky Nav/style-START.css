@@ -85,7 +85,7 @@ nav a {
   text-transform: uppercase;
 }
 
-.hooked{
+.hooked nav{
   position: fixed;
   top: 0;
   left: 0;
@@ -93,6 +93,10 @@ nav a {
 .hooked .logo{
   flex: 1;
 }
-.hooked a{
-  padding: 13px;
+.hooked nav a{
+  padding: 20px 13px;
+}
+
+.hooked .site-wrap{
+  transform: scale(1);
 }
