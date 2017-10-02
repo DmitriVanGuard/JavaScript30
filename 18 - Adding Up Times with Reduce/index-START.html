@@ -177,11 +177,34 @@
     <li data-time="1:56">
       Video 57
     </li>
-    <li data-time="4:04">
+    <li data-time="4:05">
       Video 58
     </li>
   </ul>
+
 <script>
+
+  const videoTime = [...document.querySelectorAll('[data-time]')];
+
+  const total = videoTime.reduce( (totalLength, item)=>{
+    const length = item.getAttribute('data-time');
+    const [min, sec] = length.split(':');
+    const minsInSec = parseInt(min) * 60;
+
+    return totalLength + (parseInt(sec) + minsInSec);
+
+  }, 0);
+
+  const hours = total / 3600,
+        hoursFixed = Math.floor(hours),
+        mins = (total % 3600),
+        minsFixed = Math.floor(mins/60),
+        secs = mins % 60;
+
+  console.log(`${hoursFixed}:${minsFixed}:${secs}`);
+
+
 </script>
+
 </body>
 </html>
