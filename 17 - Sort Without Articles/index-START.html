@@ -47,13 +47,10 @@
 const bands = ['The Plot in You', 'The Devil Wears Prada', 'Pierce the Veil', 'Norma Jean', 'The Bled', 'Say Anything', 'The Midway State', 'We Came as Romans', 'Counterparts', 'Oh, Sleeper', 'A Skylit Drive', 'Anywhere But Here', 'An Old Dog'];
 
 const container = document.querySelector('#bands');
-
-bands.sort( (a, b) => {
-  const regex = new RegExp('^(the |an |a )', 'i');
-  return ( a.replace(regex, '') > b.replace(regex, '') ? 1 : -1 );
-});
-
+const regex = new RegExp('^(the |an |a )', 'i');
 let html = '';
+
+bands.sort( (a, b) => ( a.replace(regex, '') > b.replace(regex, '')) ? 1 : -1 );
 bands.forEach(band => html+=`<li>${band}</li>`);
 container.innerHTML = html;
 
