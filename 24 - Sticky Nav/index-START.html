@@ -55,6 +55,27 @@
 
 <script>
 
+  const nav = document.querySelector('#main');
+  const {offsetTop: navY, offsetHeight: height} = nav;
+  const siblingMargin = parseInt(window.getComputedStyle(nav.nextElementSibling)['margin-top']);
+
+  let navHooked = false;
+
+  window.addEventListener('scroll', stickNav);
+
+  function stickNav(){
+    if(!navHooked && window.pageYOffset >= navY){
+      navHooked = true;
+      nav.classList.add('hooked');
+      nav.nextElementSibling.style.marginTop = `${siblingMargin + height}px`;
+    }
+    else if(navHooked && window.pageYOffset <= navY){
+      navHooked = false;
+      nav.classList.remove('hooked');
+      nav.nextElementSibling.style.marginTop = `${siblingMargin}px`;
+    }
+  }
+
 </script>
 
 </body>
