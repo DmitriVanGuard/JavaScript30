@@ -186,7 +186,7 @@
 
   const videoTime = [...document.querySelectorAll('[data-time]')];
 
-  const total = videoTime.reduce( (totalLength, item)=>{
+  const totalSec = videoTime.reduce( (totalLength, item)=>{
     const length = item.getAttribute('data-time');
     const [min, sec] = length.split(':');
     const minsInSec = parseInt(min) * 60;
@@ -195,13 +195,13 @@
 
   }, 0);
 
-  const hours = total / 3600,
-        hoursFixed = Math.floor(hours),
-        mins = (total % 3600),
-        minsFixed = Math.floor(mins/60),
-        secs = mins % 60;
+  let secondsLeft = totalSec;
+  const hours = Math.floor(secondsLeft / 3600);
+        secondsLeft %= 3600;
+  const mins = Math.floor(secondsLeft/60);
+        secondsLeft %= 60;
 
-  console.log(`${hoursFixed}:${minsFixed}:${secs}`);
+  console.log(`${hours}:${mins}:${secondsLeft}`);
 
 
 </script>
