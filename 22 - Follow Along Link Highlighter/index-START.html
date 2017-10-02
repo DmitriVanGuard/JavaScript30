@@ -39,25 +39,17 @@
 
     function highlightIt(){
 
-      const {offsetX: x, offsetY: y} = findTopOffset(this);
+      let {left: x, top: y} = this.getBoundingClientRect();
+
+      y += window.pageYOffset;
+      x += window.pageXOffset;
 
       hl.style.width = `${this.offsetWidth}px`;
       hl.style.height = `${this.offsetHeight}px`;
+      console.log(y, x)
       hl.style.transform = `translate(${x}px, ${y}px)`;
 
     }
-
-    function findTopOffset(child){
-      let [offsetY, offsetX] = [0, 0];
-      while(child !== document.body){
-        offsetY += child.offsetTop;
-        offsetX += child.offsetLeft;
-        child = child.offsetParent;
-      }
-      // console.table(); 
-      return {offsetX, offsetY};
-    }
-
 
   </script>
 </body>
