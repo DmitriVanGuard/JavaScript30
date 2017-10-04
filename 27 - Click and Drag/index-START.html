@@ -35,6 +35,31 @@
   </div>
 
 <script>
+    const container = document.body.firstElementChild;
+    let beingDragged = false;
+    let [startX, deltaX] = [0, 0]; 
+
+    container.addEventListener('mousedown', (e)=>
+        {
+            startX = e.clientX + container.scrollLeft;
+            beingDragged = true;
+            container.classList.add('active');
+        });
+    container.addEventListener('mouseup', ()=>
+        {
+            beingDragged = false; 
+            lastX = deltaX; 
+            container.classList.remove('active');
+        });
+    container.addEventListener('mousemove', dragSlider);
+
+    function dragSlider(e){
+        if(!beingDragged) return;
+        e.preventDefault();
+        deltaX = startX - e.clientX;
+        container.scrollLeft = deltaX;
+    }
+
 </script>
 
   </body>
